@@ -1,0 +1,84 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         10.6.4-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             11.3.0.6295
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Volcando estructura de base de datos para proyecto_reserva
+CREATE DATABASE IF NOT EXISTS `proyecto_reserva` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `proyecto_reserva`;
+
+-- Volcando estructura para tabla proyecto_reserva.reservas
+CREATE TABLE IF NOT EXISTS `reservas` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `fecha_entrada` varchar(255) DEFAULT NULL,
+  `fecha_salida` varchar(255) DEFAULT NULL,
+  `huesped` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `servicio_hab_id` bigint(20) NOT NULL,
+  `usuario_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKh1j0cvhmrqktemjwuloht4w06` (`servicio_hab_id`),
+  KEY `FKcfh7qcr7oxomqk5hhbxdg2m7p` (`usuario_id`),
+  CONSTRAINT `FKcfh7qcr7oxomqk5hhbxdg2m7p` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
+  CONSTRAINT `FKh1j0cvhmrqktemjwuloht4w06` FOREIGN KEY (`servicio_hab_id`) REFERENCES `servicios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla proyecto_reserva.reservas: ~6 rows (aproximadamente)
+/*!40000 ALTER TABLE `reservas` DISABLE KEYS */;
+INSERT INTO `reservas` (`id`, `fecha_entrada`, `fecha_salida`, `huesped`, `total`, `servicio_hab_id`, `usuario_id`) VALUES
+	(31, '2021-11-03', '2021-11-05', 2, 200000, 8, 1),
+	(32, '2021-11-25', '2021-11-26', 2, 200000, 9, 1),
+	(33, '2021-11-18', '2021-11-19', 3, 900000, 7, 1),
+	(34, '2021-11-01', '2021-11-01', 4, 600000, 10, 1),
+	(35, '2021-11-09', '2021-11-10', 1, 200000, 8, 1),
+	(36, '2021-11-24', '2021-11-25', 4, 600000, 10, 1);
+/*!40000 ALTER TABLE `reservas` ENABLE KEYS */;
+
+-- Volcando estructura para tabla proyecto_reserva.servicios
+CREATE TABLE IF NOT EXISTS `servicios` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tipo_habitacion` varchar(255) DEFAULT NULL,
+  `precio` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla proyecto_reserva.servicios: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
+INSERT INTO `servicios` (`id`, `tipo_habitacion`, `precio`) VALUES
+	(7, 'Sencilla', 300000),
+	(8, 'Doble', 200000),
+	(9, 'Matrimonial', 200000),
+	(10, 'Multiple', 150000);
+/*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
+
+-- Volcando estructura para tabla proyecto_reserva.usuarios
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `documento` varchar(255) DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `usuario` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla proyecto_reserva.usuarios: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` (`id`, `documento`, `nombre`, `password`, `usuario`) VALUES
+	(1, '88308035', 'Jose', '123', 'jose1'),
+	(2, '234567', 'Maria', '456', 'maria1');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
